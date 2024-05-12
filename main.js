@@ -68,3 +68,20 @@ function downloadCV() {
     // Programmatically trigger a click event on the anchor element
     link.click();
   }
+
+  window.onload = function() {
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // these IDs from the previous steps
+        emailjs.sendForm('service_0e5jw9q', 'template_hmipo1c', this)
+            .then(() => {
+                console.log('SUCCESS!');
+                window.alert('Message sent successfully');
+            }, (error) => {
+                console.log('FAILED...', error);
+                window.alert('Error, message not sent');
+
+            });
+    });
+}
+
