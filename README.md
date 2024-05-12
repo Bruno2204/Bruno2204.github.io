@@ -5,8 +5,5 @@ Empecé a programar desde 2021 y desde entonces me he estado formando continuame
 
 Tengo experiencia con las siguientes tecnologías: React, Python, Java, C#, C, SQL, Excel y Git. Además, puedo comunicarme fluidamente en inglés.
 
-Este es el enlace a mi Github:  github.com/Bruno2204
-Este es el enlace a mi Portfolio Web:  bruno2204.github.io
-
 Muchas gracias y saludos cordiales.
 

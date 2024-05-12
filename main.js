@@ -51,3 +51,20 @@ const typed = new Typed('.multiple-text',{
     backDelay: 1000,
     loop: true
 });
+
+function downloadCV() {
+    // Replace 'path_to_cv.pdf' with the actual path to your CV file
+    const cvPath = 'assets/Curriculum Vitae.pdf';
+    
+    // Create an anchor element
+    const link = document.createElement('a');
+    
+    // Set the href attribute to the path of your CV file
+    link.href = cvPath;
+    
+    // Set the download attribute to the filename you want the file to be downloaded as
+    link.download = 'Bruno_Elias_Gamarra_CV.pdf';
+    
+    // Programmatically trigger a click event on the anchor element
+    link.click();
+  }
