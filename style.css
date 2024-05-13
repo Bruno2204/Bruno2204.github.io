@@ -393,7 +393,6 @@ span{
         font-size: 5rem;
     }
     .home-img img{
-        width: 70vw;
         margin-top: 4rem;
     }
     .about{
@@ -412,6 +411,9 @@ span{
     .portfolio-container{
         grid-template-columns: repeat(2, 1fr);
     }
+    /* .home-img{
+        margin-top: 50px; 
+    } */
 }
 @media (max-width: 617px){
     .portfolio-container{
@@ -424,6 +426,9 @@ span{
     }
     .contact form .input-box input{
         width: 100%;
+    }
+    .home-img img{
+        margin-top: 5rem;
     }
 }
 @media (max-width: 365px){
