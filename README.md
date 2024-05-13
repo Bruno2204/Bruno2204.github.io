@@ -6,4 +6,3 @@ Empecé a programar desde 2021 y desde entonces me he estado formando continuame
 Tengo experiencia con las siguientes tecnologías: React, Python, Java, C#, C, SQL, Excel y Git. Además, puedo comunicarme fluidamente en inglés.
 
 Muchas gracias y saludos cordiales.
-
