@@ -222,8 +222,9 @@ span{
 .portfolio-container{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    align-items: center;
+    align-items: stretch;
     gap: 2.5rem;
+    margin: 0px 2rem;
 }
 
 .portfolio-container .portfolio-box{
@@ -247,7 +248,7 @@ span{
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0,0,0,.1), var(--main-color));
+    background: linear-gradient(rgba(0,0,0,0.2), rgb(0, 134, 183));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -255,7 +256,7 @@ span{
     padding: 0;
     text-align: center;
     padding: 0 4rem;
-    transform: translateY(100%);
+    transform: translateY(110%);
     transition: .5s ease;
 }
 .portfolio-box:hover .portfolio-layer{
@@ -277,6 +278,7 @@ span{
     height: 5rem;
     background: var(--text-color);
     border-radius: 50%;
+    font-size:x-large;
 }
 .contact h2{
     margin-bottom: 3rem;
@@ -362,6 +364,9 @@ span{
     .footer{
         padding: 2rem 3%;
     }
+    .portfolio-box .portfolio-layer{
+        transform: translateY(155%);
+    }
 }
 @media (max-width: 768px){
     #menu-icon{
@@ -412,7 +417,10 @@ span{
         margin-bottom: 3rem;
     }
     .portfolio-container{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+    }
+    .portfolio-box .portfolio-layer{
+        transform: translateY(100%);
     }
     /* .home-img{
         margin-top: 50px; 
