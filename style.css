@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');:root{
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root{
     --bg-color: #1f242d;
     --second-bg-color: #323946;
     --text-color: #fff;
@@ -180,19 +181,21 @@ span{
 .services-container{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
     gap: 2rem;
 }
 .services-container .services-box{
     flex: 1 1 30rem;
     background: var(--second-bg-color);
-    padding: 3rem 2rem 4rem;
+    padding: 3rem 2rem;
     border-radius: 2rem;
     text-align: center;
     border: .2rem solid var(--bg-color);
     transition: .5s ease;
+    align-content: center;
 }
+
 .services-container .services-box:hover{
     border-color: var(--main-color);
     transform: scale(1.02);
