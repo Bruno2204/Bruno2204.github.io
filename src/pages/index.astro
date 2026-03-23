@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Projects from '../components/Projects.astro';
+import Container from '../components/Container.astro';
+import Hero from '../components/Hero.astro';
+import AboutMe from '../components/AboutMe.astro';
+import ContactMe from '../components/ContactMe.astro';
+---
+
+<Layout>
+	<main class='px-4'>
+		<Container id='top' class='pt-44 pb-24'>
+			<Hero />
+		</Container>
+		<Container id='projects' class='pt-20 pb-24'>
+			<Projects />
+		</Container>
+		<Container id='about' class='pt-20 pb-24'>
+			<AboutMe />
+		</Container>
+		<Container id='contact' class='pt-12 pb-4'>
+			<ContactMe />
+		</Container>
+	</main>
+</Layout>

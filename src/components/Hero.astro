@@ -1,0 +1,101 @@
+---
+import SocialPill from './SocialPill.astro';
+import Badge from '../components/Badge.astro';
+import LinkedInIcon from '../icons/LinkedIn.astro';
+import GithubIcon from '../icons/Github.astro';
+import MailIcon from '../icons/MailIcon.astro';
+import ToastSuccess from './ToastSuccess.astro';
+---
+
+<div class='flex flex-row gap-x-4 items-center mb-4'>
+  <img src='/me.png' alt='Logo' class='rounded-full size-40' />
+  <div class='transition hover:scale-105'>
+    <Badge>Disponible para trabajar</Badge>
+  </div>
+</div>
+<h1
+  class='text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10'
+>
+  Hola, Soy Bruno
+  <a
+    href='https://www.linkedin.com/in/bruno-el%C3%ADas-gamarra-2785b7258/'
+    target='_blank'
+    rel='noopener'
+    class='flex justify-center items-center'
+  >
+  </a>
+</h1>
+<h2 class='text-xl lg:text-2xl text-wrap max-w-[700px]'>
+  <span class='text-yellow-200/90'>
+    Desarrollador Web y Analista de Sistemas.
+  </span> De
+  <span class='text-red-200/90'>Posadas, Misiones</span>.
+  <span class='opacity-75'>
+    Estudio Licenciatura en Sistemas en la Universidad Nacional de Misiones.
+  </span>
+</h2>
+
+<nav class='flex gap-5 mt-8 flex-wrap'>
+  <SocialPill
+    href='https://www.linkedin.com/in/bruno-el%C3%ADas-gamarra-2785b7258/'
+    target='_blank'
+  >
+    <LinkedInIcon class='size-4 md:size-6' />
+    LinkedIn
+  </SocialPill>
+  <SocialPill href='https://github.com/Bruno2204' target='_blank'>
+    <GithubIcon class='size-4 md:size-6' />
+    GitHub
+  </SocialPill>
+  <SocialPill id='email-pill'>
+    <MailIcon class='size-4 md:size-6' />
+    brunoegama@gmail.com
+  </SocialPill>
+</nav>
+
+<!-- Toast -->
+<ToastSuccess id='hero-toast-success'>Email copiado al portapapeles</ToastSuccess>
+
+<script>
+  const emailPill = document.getElementById('email-pill');
+  const toast = document.getElementById('hero-toast-success');
+  let toastTimeout: ReturnType<typeof setTimeout>;
+
+  function showToast() {
+    if (!toast) return;
+    clearTimeout(toastTimeout);
+
+    // Step 1: Make visible but keep translated down and transparent
+    toast.classList.remove('hidden');
+    toast.classList.add('flex');
+
+    // Step 2: Next frame — trigger the CSS transition
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-20');
+        toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      });
+    });
+
+    toastTimeout = setTimeout(hideToast, 3000);
+  }
+
+  function hideToast() {
+    if (!toast) return;
+    clearTimeout(toastTimeout);
+    toast.classList.remove('opacity-100', 'translate-y-0');
+    toast.classList.add('opacity-0', 'translate-y-20');
+    setTimeout(() => {
+      toast.classList.add('hidden', 'pointer-events-none');
+      toast.classList.remove('pointer-events-auto', 'flex');
+    }, 500);
+  }
+
+  emailPill?.addEventListener('click', (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('brunoegama@gmail.com').then(showToast);
+  });
+
+  toast?.querySelector('[data-dismiss-toast]')?.addEventListener('click', hideToast);
+</script>
+

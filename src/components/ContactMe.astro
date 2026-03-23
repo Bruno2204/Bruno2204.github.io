@@ -1,0 +1,182 @@
+---
+import AboutMeIcon from '../icons/AboutMeIcon.astro';
+import ToastSuccess from './ToastSuccess.astro';
+import ToastError from './ToastError.astro';
+---
+
+<section class='w-full max-w-280 mx-auto my-4 text-center mb-12' id='contact'>
+  <h2 class='text-3xl font-semibold mb-12 flex gap-x-3 items-center'>
+    <AboutMeIcon class='size-7' />
+    Contactame
+  </h2>
+  <form id='contact-form' action='#' class='w-full'>
+    <div class='flex justify-between flex-wrap'>
+      <input
+        type='text'
+        placeholder='Nombre Completo'
+        name='emailjs_name'
+        id='emailjs_name'
+        class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
+        required
+      />
+      <input
+        type='email'
+        placeholder='Correo Electronico'
+        name='emailjs_email'
+        id='emailjs_email'
+        class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
+        required
+      />
+    </div>
+    <div class='flex justify-between flex-wrap'>
+      <input
+        type='number'
+        placeholder='Numero de Telefono'
+        name='emailjs_number'
+        id='emailjs_number'
+        class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
+      />
+      <input
+        type='text'
+        placeholder='Asunto del Correo'
+        name='emailjs_subject'
+        id='emailjs_subject'
+        class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
+        required
+      />
+    </div>
+
+    <textarea
+      cols='30'
+      rows='10'
+      name='emailjs_message'
+      id='emailjs_message'
+      placeholder='Tu Mensaje'
+      class='w-full p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] resize-none outline-none focus:ring-2 focus:ring-blue-500'
+      required></textarea>
+
+    <button
+      type='submit'
+      id='submit-btn'
+      class='mt-8 inline-block px-[2.8rem] py-4 bg-blue-700 rounded-full shadow-[0_0_1rem_var(--color-blue-700)] text-xl text-gray-100 tracking-[0.1rem] font-semibold cursor-pointer transition-all duration-500 ease-in hover:shadow-none hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none'
+    >
+      Enviar Correo
+    </button>
+  </form>
+</section>
+
+<ToastSuccess id='contact-toast-success'>
+  ¡Mensaje enviado! Te responderé a la brevedad.
+</ToastSuccess>
+
+<ToastError id='contact-toast-error'>
+  Algo salió mal. Intentá de nuevo o escribime directamente.
+</ToastError>
+
+<script>
+  import emailjs from '@emailjs/browser';
+
+  const SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY;
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successToast = document.getElementById('contact-toast-success');
+  const errorToast = document.getElementById('contact-toast-error');
+  let toastTimeout: number;
+
+  function showToast(toast: HTMLElement | null) {
+    // Hide any visible toast first
+    hideAllToasts();
+    if (!toast) return;
+
+    // Step 1: Make visible but keep it translated down and transparent
+    toast.classList.remove('hidden');
+    toast.classList.add('flex');
+
+    // Step 2: Next frame — trigger the CSS transition
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.remove(
+          'opacity-0',
+          'pointer-events-none',
+          'translate-y-20',
+        );
+        toast.classList.add(
+          'opacity-100',
+          'pointer-events-auto',
+          'translate-y-0',
+        );
+      });
+    });
+
+    toastTimeout = window.setTimeout(() => hideToast(toast), 3000);
+  }
+
+  function hideToast(toast: HTMLElement | null) {
+    if (!toast) return;
+    clearTimeout(toastTimeout);
+    toast.classList.remove('opacity-100', 'translate-y-0');
+    toast.classList.add('opacity-0', 'translate-y-20');
+    window.setTimeout(() => {
+      toast.classList.add('hidden', 'pointer-events-none');
+      toast.classList.remove('pointer-events-auto', 'flex');
+    }, 500);
+  }
+
+  function hideAllToasts() {
+    clearTimeout(toastTimeout);
+    [successToast, errorToast].forEach((t) => {
+      if (t && !t.classList.contains('hidden')) {
+        hideToast(t);
+      }
+    });
+  }
+
+  // Dismiss buttons
+  document.querySelectorAll('[data-dismiss-toast]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const toast = btn.closest('.toast') as HTMLElement | null;
+      hideToast(toast);
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    hideAllToasts();
+
+    const templateParams = {
+      emailjs_name: (
+        document.getElementById('emailjs_name') as HTMLInputElement
+      ).value,
+      emailjs_email: (
+        document.getElementById('emailjs_email') as HTMLInputElement
+      ).value,
+      emailjs_number: (
+        document.getElementById('emailjs_number') as HTMLInputElement
+      ).value,
+      emailjs_subject: (
+        document.getElementById('emailjs_subject') as HTMLInputElement
+      ).value,
+      emailjs_message: (
+        document.getElementById('emailjs_message') as HTMLTextAreaElement
+      ).value,
+    };
+
+    try {
+      await emailjs.send('SERVICE_ID', TEMPLATE_ID, templateParams, PUBLIC_KEY);
+      showToast(successToast);
+      form.reset();
+    } catch (error) {
+      showToast(errorToast);
+      console.error('EmailJS error:', error);
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Enviar Correo';
+  });
+</script>

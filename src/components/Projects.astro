@@ -1,0 +1,64 @@
+---
+import ReactIcon from '../icons/React.astro';
+import ExpressIcon from '../icons/Express.astro';
+import CodeIcon from '../icons/Code.astro';
+
+const TAGS = {
+  REACT: {
+    name: 'React',
+    class: 'bg-blue-500/10 text-blue-500',
+    icon: ReactIcon,
+  },
+  EXPRESS: {
+    name: 'Express',
+    class: 'bg-black text-white',
+    icon: ExpressIcon,
+  },
+};
+
+const PROJECTS = [
+  {
+    title: 'Project 1',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
+    link: '#',
+    github: '#',
+    image:
+      'https://png.pngtree.com/thumb_back/fh260/background/20240610/pngtree-computer-of-a-programmer-with-lines-code-of-software-image_15746003.jpg',
+    tags: [TAGS.REACT, TAGS.EXPRESS],
+  },
+];
+---
+
+<h2 class='text-3xl font-semibold mb-6 flex gap-x-3 items-center'>
+  <CodeIcon class='size-7' />
+  Proyectos
+</h2>
+
+{
+  PROJECTS.map((project) => (
+    <article>
+      <h3 class='text-2xl font-semibold text-yellow-200 mb-2'>
+        {project.title}
+      </h3>
+      <p class='text-lg mb-4 text-pretty'>{project.description}</p>
+      <ul class='flex gap-x-2 flex-row mb-2'>
+        {project.tags.map((tag) => (
+          <li>
+            <span
+              class={`flex gap-x-2 items-center rounded-full text-sm ${tag.class} py-1 px-2`}
+            >
+              <tag.icon class='size-4' />
+              {tag.name}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <img
+        class='rounded shadow-xl shadow-white/5'
+        src={project.image}
+        alt={`Captura de pantalla del proyecto ${project.title}`}
+      />
+    </article>
+  ))
+}

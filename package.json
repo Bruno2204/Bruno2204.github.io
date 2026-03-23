@@ -1,0 +1,22 @@
+{
+  "name": "bruno2204.github.io",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@fontsource-variable/onest": "^5.2.11",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.0.7",
+    "flowbite": "^4.0.1",
+    "tailwindcss": "^4.2.2"
+  }
+}
