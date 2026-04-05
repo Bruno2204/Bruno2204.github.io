@@ -25,13 +25,17 @@ import ToastSuccess from './ToastSuccess.astro';
   >
   </a>
 </h1>
-<h2 class='text-xl lg:text-2xl text-wrap max-w-[700px]'>
-  <span class='text-yellow-200/90'>
-    Desarrollador Web y Analista de Sistemas.
-  </span> De
-  <span class='text-red-200/90'>Posadas, Misiones</span>.
-  <span class='opacity-75'>
-    Estudio Licenciatura en Sistemas en la Universidad Nacional de Misiones.
+<h2 class='text-xl lg:text-2xl max-w-[700px] text-pretty'>
+  <span class='text-blue-400/90 font-semibold'> Desarrollador Web </span> de Posadas,
+  Misiones, Argentina.
+  <span class=''
+    ><br />
+    Estudio <span class='text-blue-400/90 font-semibold'
+      >Licenciatura en Sistemas</span
+    > en la
+    <span class='text-blue-400/90 font-semibold'
+      >Universidad Nacional de Misiones</span
+    >.
   </span>
 </h2>
 
@@ -54,7 +58,9 @@ import ToastSuccess from './ToastSuccess.astro';
 </nav>
 
 <!-- Toast -->
-<ToastSuccess id='hero-toast-success'>Email copiado al portapapeles</ToastSuccess>
+<ToastSuccess id='hero-toast-success'
+  >Email copiado al portapapeles</ToastSuccess
+>
 
 <script>
   const emailPill = document.getElementById('email-pill');
@@ -72,8 +78,16 @@ import ToastSuccess from './ToastSuccess.astro';
     // Step 2: Next frame — trigger the CSS transition
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-20');
-        toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        toast.classList.remove(
+          'opacity-0',
+          'pointer-events-none',
+          'translate-y-20',
+        );
+        toast.classList.add(
+          'opacity-100',
+          'pointer-events-auto',
+          'translate-y-0',
+        );
       });
     });
 
@@ -96,6 +110,7 @@ import ToastSuccess from './ToastSuccess.astro';
     navigator.clipboard.writeText('brunoegama@gmail.com').then(showToast);
   });
 
-  toast?.querySelector('[data-dismiss-toast]')?.addEventListener('click', hideToast);
+  toast
+    ?.querySelector('[data-dismiss-toast]')
+    ?.addEventListener('click', hideToast);
 </script>
-
