@@ -5,109 +5,114 @@ import CodeIcon from '../icons/Code.astro';
 import TailwindIcon from '../icons/Tailwind.astro';
 import AstroIcon from '../icons/AstroIcon.astro';
 import GithubIcon from '../icons/Github.astro';
+import { t, type TranslationKey } from '../i18n/ui';
 
 const TAGS = {
-  REACT: {
-    name: 'React',
-    class: 'bg-blue-500/20 text-white/90',
-    icon: ReactIcon,
-  },
-  EXPRESS: {
-    name: 'Express',
-    class: 'bg-black text-white/90',
-    icon: ExpressIcon,
-  },
-  TAILWIND: {
-    name: 'TailwindCSS',
-    class: 'bg-blue-400/40 text-white/90',
-    icon: TailwindIcon,
-  },
-  ASTRO: {
-    name: 'Astro',
-    class: 'bg-orange-500/20 text-white/90',
-    icon: AstroIcon,
-  },
+	REACT: {
+		name: 'React',
+		class: 'bg-blue-500/20 text-white/90',
+		icon: ReactIcon,
+	},
+	EXPRESS: {
+		name: 'Express',
+		class: 'bg-black text-white/90',
+		icon: ExpressIcon,
+	},
+	TAILWIND: {
+		name: 'TailwindCSS',
+		class: 'bg-blue-400/40 text-white/90',
+		icon: TailwindIcon,
+	},
+	ASTRO: {
+		name: 'Astro',
+		class: 'bg-orange-500/20 text-white/90',
+		icon: AstroIcon,
+	},
 };
 
 const PROJECTS = [
-  {
-    title: 'Clon de Spotify',
-    description:
-      'Un clon de Spotify con funcionalidades basicas de reproduccion de musica.',
-    link: 'https://spotify-clone-seven-rho-55.vercel.app/',
-    github: 'https://github.com/Bruno2204/spotify-clone',
-    image: '/spotify-clone.jpeg',
-    tags: [TAGS.REACT, TAGS.ASTRO, TAGS.TAILWIND],
-  },
+	{
+		titleKey: 'projects.spotify.title' as TranslationKey,
+		descKey: 'projects.spotify.description' as TranslationKey,
+		link: 'https://spotify-clone-seven-rho-55.vercel.app/',
+		github: 'https://github.com/Bruno2204/spotify-clone',
+		image: '/spotify-clone.jpeg',
+		tags: [TAGS.REACT, TAGS.ASTRO, TAGS.TAILWIND],
+	},
 ];
 ---
 
 <h2 class='text-3xl font-semibold mb-6 flex gap-x-3 items-center'>
-  <CodeIcon class='size-7' />
-  Proyectos
+	<CodeIcon class='size-7' />
+	<span data-i18n='projects.title'>Proyectos</span>
 </h2>
 
 {
-  PROJECTS.map((project) => (
-    <article class='flex flex-col md:flex-row gap-5 w-full'>
-      <picture class='w-full'>
-        <img
-          class='rounded shadow-lg w-full shadow-white/5 hover:scale-101 transition-transform duration-300 '
-          src={project.image}
-          alt={`Captura de pantalla del proyecto ${project.title}`}
-        />
-      </picture>
-      <div>
-        <h3 class='text-2xl font-semibold text-green-400 mb-2'>
-          {project.title}
-        </h3>
-        <ul class='flex gap-x-2 flex-row mb-2 select-none'>
-          {project.tags.map((tag) => (
-            <li>
-              <span
-                class={`flex gap-x-2 items-center rounded-full text-sm ${tag.class} py-1 px-2 text-light`}
-              >
-                <tag.icon class='size-4' />
-                {tag.name}
-              </span>
-            </li>
-          ))}
-        </ul>
-        <p class='text-md mb-4 text-pretty'>{project.description}</p>
+	PROJECTS.map((project) => (
+		<article class='flex flex-col md:flex-row gap-5 w-full'>
+			<picture class='w-full'>
+				<img
+					class='rounded shadow-lg w-full shadow-white/5 hover:scale-101 transition-transform duration-300 '
+					src={project.image}
+					alt={`Captura de pantalla del proyecto ${t('es', project.titleKey)}`}
+				/>
+			</picture>
+			<div>
+				<h3
+					data-i18n={project.titleKey}
+					class='text-2xl font-semibold text-green-400 mb-2'
+				>
+					{t('es', project.titleKey)}
+				</h3>
+				<ul class='flex gap-x-2 flex-row mb-2 select-none'>
+					{project.tags.map((tag) => (
+						<li>
+							<span
+								class={`flex gap-x-2 items-center rounded-full text-sm ${tag.class} py-1 px-2 text-light`}
+							>
+								<tag.icon class='size-4' />
+								{tag.name}
+							</span>
+						</li>
+					))}
+				</ul>
+				<p data-i18n={project.descKey} class='text-md mb-4 text-pretty'>
+					{t('es', project.descKey)}
+				</p>
 
-        <div class='flex gap-x-4 mt-4'>
-          <a
-            href={project.github}
-            target='_blank'
-            rel='noopener noreferrer'
-            class='inline-flex items-center gap-x-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm py-2 px-4 hover:bg-white/20 transition-colors'
-          >
-            <GithubIcon class='size-5' />
-            GitHub
-          </a>
-          <a
-            href={project.link}
-            target='_blank'
-            rel='noopener noreferrer'
-            class='inline-flex items-center gap-x-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm py-2 px-4 hover:bg-white/20 transition-colors'
-          >
-            <svg
-              class='size-5'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              stroke-width='2'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-            >
-              <path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' />
-              <polyline points='15 3 21 3 21 9' />
-              <line x1='10' y1='14' x2='21' y2='3' />
-            </svg>
-            Proyecto
-          </a>
-        </div>
-      </div>
-    </article>
-  ))
+				<div class='flex gap-x-4 mt-4'>
+					<a
+						href={project.github}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='inline-flex items-center gap-x-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm py-2 px-4 hover:bg-white/20 transition-colors'
+					>
+						<GithubIcon class='size-5' />
+						<span data-i18n='projects.github'>GitHub</span>
+					</a>
+					<a
+						href={project.link}
+						target='_blank'
+						rel='noopener noreferrer'
+						class='inline-flex items-center gap-x-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm py-2 px-4 hover:bg-white/20 transition-colors'
+					>
+						<svg
+							class='size-5'
+							viewBox='0 0 24 24'
+							fill='none'
+							stroke='currentColor'
+							stroke-width='2'
+							stroke-linecap='round'
+							stroke-linejoin='round'
+						>
+							<path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' />
+							<polyline points='15 3 21 3 21 9' />
+							<line x1='10' y1='14' x2='21' y2='3' />
+						</svg>
+						<span data-i18n='projects.viewProject'>Proyecto</span>
+					</a>
+				</div>
+			</div>
+		</article>
+	))
 }

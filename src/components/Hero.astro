@@ -8,35 +8,37 @@ import ToastSuccess from './ToastSuccess.astro';
 ---
 
 <div class='flex flex-row gap-x-4 items-center mb-4'>
-  <img src='/me.png' alt='Logo' class='rounded-full size-40' />
-  <div class='transition hover:scale-105'>
-    <Badge>Disponible para trabajar</Badge>
-  </div>
+	<img src='/me.png' alt='Logo' class='rounded-full size-40' />
+	<div class='transition hover:scale-105'>
+		<Badge><span data-i18n='hero.badge'>Disponible para trabajar</span></Badge>
+	</div>
 </div>
 <h1
-  class='text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10'
+	class='text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10'
 >
-  Hola, Soy Bruno
-  <a
-    href='https://www.linkedin.com/in/bruno-el%C3%ADas-gamarra-2785b7258/'
-    target='_blank'
-    rel='noopener'
-    class='flex justify-center items-center'
-  >
-  </a>
+	<span data-i18n='hero.greeting'>Hola, Soy Bruno</span>
+	<a
+		href='https://www.linkedin.com/in/bruno-el%C3%ADas-gamarra-2785b7258/'
+		target='_blank'
+		rel='noopener'
+		class='flex justify-center items-center'
+	>
+	</a>
 </h1>
 <h2 class='text-xl lg:text-2xl max-w-[700px] text-pretty'>
-  <span class='text-blue-400/90 font-semibold'> Desarrollador Web </span> de Posadas,
-  Misiones, Argentina.
-  <span class=''
-    ><br />
-    Estudio <span class='text-blue-400/90 font-semibold'
-      >Licenciatura en Sistemas</span
-    > en la
-    <span class='text-blue-400/90 font-semibold'
-      >Universidad Nacional de Misiones</span
-    >.
-  </span>
+	<span data-i18n='hero.role' class='text-blue-400/90 font-semibold'>
+		Desarrollador Web
+	</span>
+	<span data-i18n='hero.location'>de Posadas, Misiones, Argentina.</span>
+	<br />
+	<span data-i18n='hero.study'>Estudio</span>
+	<span data-i18n='hero.degree' class='text-blue-400/90 font-semibold'>
+		Licenciatura en Sistemas
+	</span>
+	<span data-i18n='hero.at'>en la</span>
+	<span data-i18n='hero.university' class='text-blue-400/90 font-semibold'>
+		Universidad Nacional de Misiones
+	</span>.
 </h2>
 
 <nav class='flex gap-5 mt-8 flex-wrap'>
@@ -59,7 +61,8 @@ import ToastSuccess from './ToastSuccess.astro';
 
 <!-- Toast -->
 <ToastSuccess id='hero-toast-success'
-  >Email copiado al portapapeles</ToastSuccess
+	><span data-i18n='hero.toast.copied'>Email copiado al portapapeles</span
+	></ToastSuccess
 >
 
 <script>

@@ -2,18 +2,20 @@
 import AboutMeIcon from '../icons/AboutMeIcon.astro';
 import ToastSuccess from './ToastSuccess.astro';
 import ToastError from './ToastError.astro';
+import { t } from '../i18n/ui';
 ---
 
 <section class='w-full max-w-280 mx-auto text-center mb-12 mt-16' id='contact'>
   <h2 class='text-3xl font-semibold mb-12 flex gap-x-3 items-center'>
     <AboutMeIcon class='size-7' />
-    Contactame
+    <span data-i18n='contactMe.title'>Contactame</span>
   </h2>
   <form id='contact-form' action='#' class='w-full'>
     <div class='flex justify-between flex-wrap'>
       <input
         type='text'
-        placeholder='Nombre Completo'
+        placeholder={t('es', 'contactMe.name')}
+        data-i18n-placeholder='contactMe.name'
         name='emailjs_name'
         id='emailjs_name'
         class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
@@ -21,7 +23,8 @@ import ToastError from './ToastError.astro';
       />
       <input
         type='email'
-        placeholder='Correo Electronico'
+        placeholder={t('es', 'contactMe.email')}
+        data-i18n-placeholder='contactMe.email'
         name='emailjs_email'
         id='emailjs_email'
         class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
@@ -31,14 +34,16 @@ import ToastError from './ToastError.astro';
     <div class='flex justify-between flex-wrap'>
       <input
         type='number'
-        placeholder='Numero de Telefono'
+        placeholder={t('es', 'contactMe.phone')}
+        data-i18n-placeholder='contactMe.phone'
         name='emailjs_number'
         id='emailjs_number'
         class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
       />
       <input
         type='text'
-        placeholder='Asunto del Correo'
+        placeholder={t('es', 'contactMe.subject')}
+        data-i18n-placeholder='contactMe.subject'
         name='emailjs_subject'
         id='emailjs_subject'
         class='w-full sm:w-[49%] p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] outline-none focus:ring-2 focus:ring-blue-500'
@@ -51,30 +56,37 @@ import ToastError from './ToastError.astro';
       rows='10'
       name='emailjs_message'
       id='emailjs_message'
-      placeholder='Tu Mensaje'
+      placeholder={t('es', 'contactMe.message')}
+      data-i18n-placeholder='contactMe.message'
       class='w-full p-4 text-xl placeholder:text-gray-300/80 text-gray-100 bg-gray-800 rounded-xl my-[0.7rem] resize-none outline-none focus:ring-2 focus:ring-blue-500'
       required></textarea>
 
     <button
       type='submit'
       id='submit-btn'
+      data-original-label={t('es', 'contactMe.submit')}
       class='mt-8 inline-block px-[2.8rem] py-4 bg-blue-700 rounded-full shadow-[0_0_1rem_var(--color-blue-700)] text-xl text-gray-100 tracking-[0.1rem] font-semibold cursor-pointer transition-all duration-500 ease-in hover:shadow-none hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none'
     >
-      Enviar Correo
+      <span data-i18n='contactMe.submit'>{t('es', 'contactMe.submit')}</span>
     </button>
   </form>
 </section>
 
 <ToastSuccess id='contact-toast-success'>
-  ¡Mensaje enviado! Te responderé a la brevedad.
+  <span data-i18n='contactMe.toast.success'>
+    ¡Mensaje enviado! Te responderé a la brevedad.
+  </span>
 </ToastSuccess>
 
 <ToastError id='contact-toast-error'>
-  Algo salió mal. Intentá de nuevo o escribime directamente.
+  <span data-i18n='contactMe.toast.error'>
+    Algo salió mal. Intentá de nuevo o escribime directamente.
+  </span>
 </ToastError>
 
 <script>
   import emailjs from '@emailjs/browser';
+  import { t, isLocale, defaultLocale, type Locale } from '../i18n/ui';
 
   const SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID;
   const TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID;
@@ -86,16 +98,18 @@ import ToastError from './ToastError.astro';
   const errorToast = document.getElementById('contact-toast-error');
   let toastTimeout: number;
 
+  function currentLocale(): Locale {
+    const stored = localStorage.getItem('locale');
+    return isLocale(stored) ? stored : defaultLocale;
+  }
+
   function showToast(toast: HTMLElement | null) {
-    // Hide any visible toast first
     hideAllToasts();
     if (!toast) return;
 
-    // Step 1: Make visible but keep it translated down and transparent
     toast.classList.remove('hidden');
     toast.classList.add('flex');
 
-    // Step 2: Next frame — trigger the CSS transition
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         toast.classList.remove(
@@ -134,7 +148,6 @@ import ToastError from './ToastError.astro';
     });
   }
 
-  // Dismiss buttons
   document.querySelectorAll('[data-dismiss-toast]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const toast = btn.closest('.toast') as HTMLElement | null;
@@ -145,8 +158,13 @@ import ToastError from './ToastError.astro';
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const locale = currentLocale();
+    const label = btn.querySelector<HTMLElement>('[data-i18n="contactMe.submit"]');
+    const originalText = label?.textContent ?? btn.dataset.originalLabel ?? '';
+
     btn.disabled = true;
-    btn.textContent = 'Enviando...';
+    if (label) label.textContent = t(locale, 'contactMe.sending');
+    else btn.textContent = t(locale, 'contactMe.sending');
     hideAllToasts();
 
     const templateParams = {
@@ -177,6 +195,7 @@ import ToastError from './ToastError.astro';
     }
 
     btn.disabled = false;
-    btn.textContent = 'Enviar Correo';
+    if (label) label.textContent = originalText || t(locale, 'contactMe.submit');
+    else btn.textContent = originalText || t(locale, 'contactMe.submit');
   });
 </script>

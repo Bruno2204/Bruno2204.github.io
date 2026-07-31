@@ -3,32 +3,46 @@ import AboutMeIcon from '../icons/AboutMeIcon.astro';
 ---
 
 <h1 class='text-3xl font-semibold mb-6 flex gap-x-3 items-center'>
-  <AboutMeIcon class='size-7' />
-  Sobre mi
+	<AboutMeIcon class='size-7' />
+	<span data-i18n='aboutMe.title'>Sobre mi</span>
 </h1>
 <article class='flex gap-x-10 flex-col md:flex-row items-center'>
-  <div
-    class='flex flex-col gap-4 text-gray-300 [&>p>strong]:text-blue-400 [&>p>strong]:font-semibold text-pretty order-0 md:order-0'
-  >
-    <p class='mb-5'>
-      Me llamo Bruno Elías Gamarra, mi camino en la programación empezó en 2020
-      al ingresar en la
-      <strong>Universidad Nacional de Misiones (UNaM)</strong>, donde empece a
-      estudiar la carrera de
-      <strong>Licenciatura en Sistemas de informacion</strong>, la cual me
-      encuentro cursando actualmente.
-    </p>
+	<div
+		class='flex flex-col gap-4 text-gray-300 [&>p>strong]:text-blue-400 [&>p>strong]:font-semibold text-pretty order-0 md:order-0'
+	>
+		<p class='mb-5'>
+			<span data-i18n='aboutMe.p1Start'>
+				Me llamo Bruno Elías Gamarra, mi camino en la programación empezó en 2020
+				al ingresar en la
+			</span>
+			<strong data-i18n='aboutMe.universityFull'>
+				Universidad Nacional de Misiones (UNaM)
+			</strong>
+			<span data-i18n='aboutMe.p1Middle'>
+				, donde empece a estudiar la carrera de
+			</span>
+			<strong data-i18n='aboutMe.degree'>
+				Licenciatura en Sistemas de informacion
+			</strong>
+			<span data-i18n='aboutMe.p1End'>
+				, la cual me encuentro cursando actualmente.
+			</span>
+		</p>
 
-    <p class='mb-12 md:mb-0'>
-      Mi enfoque principal es el <strong>Desarrollo Web</strong> con
-      <strong>React, Express y PostgreSQL</strong>. Me gusta crear soluciones
-      innovadoras y eficientes, y estoy en constante aprendizaje para mejorar
-      mis habilidades.
-    </p>
-  </div>
-  <img
-    src='/me.png'
-    alt='Logo'
-    class='rounded-full size-50 border-gray-500/20 border-solid border-[3px] mr-5 hover:scale-105 transition-transform duration-300'
-  />
+		<p class='mb-12 md:mb-0'>
+			<span data-i18n='aboutMe.p2Start'>Mi enfoque principal es el</span>
+			<strong data-i18n='aboutMe.focus'>Desarrollo Web</strong>
+			<span data-i18n='aboutMe.p2Middle'>con</span>
+			<strong data-i18n='aboutMe.stack'>React, Express y PostgreSQL</strong>
+			<span data-i18n='aboutMe.p2End'>
+				. Me gusta crear soluciones innovadoras y eficientes, y estoy en
+				constante aprendizaje para mejorar mis habilidades.
+			</span>
+		</p>
+	</div>
+	<img
+		src='/me.png'
+		alt='Logo'
+		class='rounded-full size-50 border-gray-500/20 border-solid border-[3px] mr-5 hover:scale-105 transition-transform duration-300'
+	/>
 </article>

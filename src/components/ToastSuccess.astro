@@ -24,12 +24,13 @@ const { id = 'toast-success' } = Astro.props;
       d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
   </svg>
   <span><slot /></span>
-  <button
-    type='button'
-    class='ml-2 text-green-300 hover:text-green-100 transition-colors'
-    data-dismiss-toast
-    aria-label='Cerrar'
-  >
+		<button
+			type='button'
+			class='ml-2 text-green-300 hover:text-green-100 transition-colors'
+			data-dismiss-toast
+			aria-label='Cerrar'
+			data-i18n-aria='toast.close'
+		>
     <svg
       xmlns='http://www.w3.org/2000/svg'
       class='w-5 h-5'

@@ -25,12 +25,13 @@ const { id = 'toast-error' } = Astro.props;
     ></path>
   </svg>
   <span><slot /></span>
-  <button
-    type='button'
-    class='ml-2 text-red-300 hover:text-red-100 transition-colors'
-    data-dismiss-toast
-    aria-label='Cerrar'
-  >
+		<button
+			type='button'
+			class='ml-2 text-red-300 hover:text-red-100 transition-colors'
+			data-dismiss-toast
+			aria-label='Cerrar'
+			data-i18n-aria='toast.close'
+		>
     <svg
       xmlns='http://www.w3.org/2000/svg'
       class='w-5 h-5'
