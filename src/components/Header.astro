@@ -1,49 +1,56 @@
 ---
-const NAVS = [
-  { href: '#top', label: 'Inicio' },
-  { href: '#projects', label: 'Proyectos' },
-  { href: '#about', label: 'Sobre Mi' },
-  { href: '#contact', label: 'Contacto' },
+import { t, type TranslationKey } from '../i18n/ui';
+import LangSwitcher from './LangSwitcher.astro';
+
+const NAVS: Array<{ href: string; key: TranslationKey }> = [
+	{ href: '#top', key: 'nav.inicio' },
+	{ href: '#projects', key: 'nav.proyectos' },
+	{ href: '#about', key: 'nav.sobreMi' },
+	{ href: '#contact', key: 'nav.contacto' },
 ];
 ---
 
 <header
-  class='fixed top-0 z-10 flex justify-center items-center w-full mx-auto mt-2'
+	class='fixed top-0 z-10 flex justify-center items-center w-full mx-auto mt-2 px-4'
 >
-  <nav class='flex flex-row gap-x-10 py-2 px-5 rounded-full'>
-    {
-      NAVS.map((nav) => (
-        <a
-          class='hover:text-blue-500 transition-colors duration-300'
-          href={nav.href}
-        >
-          {nav.label}
-        </a>
-      ))
-    }
-  </nav>
+	<nav
+		class='flex flex-row gap-x-6 sm:gap-x-10 py-2 px-5 rounded-full items-center'
+	>
+		{
+			NAVS.map((nav) => (
+				<a
+					class='hover:text-blue-500 transition-colors duration-300'
+					href={nav.href}
+				>
+					<span data-i18n={nav.key}>{t('es', nav.key)}</span>
+				</a>
+			))
+		}
+		<span class='h-4 w-px bg-white/20'></span>
+		<LangSwitcher />
+	</nav>
 </header>
 
 <style>
-  @reference "../styles/global.css";
+	@reference "../styles/global.css";
 
-  nav {
-    animation: nav-shadown 1s linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
-    @apply bg-gray-800/90;
-  }
+	nav {
+		animation: nav-shadown 1s linear both;
+		animation-timeline: scroll();
+		animation-range: 0 100px;
+		@apply bg-gray-800/90;
+	}
 
-  @keyframes nav-shadown {
-    0% {
-      background-color: transparent;
-    }
-    to {
-      box-shadow:
-        0 10px 15px -3px rgb(0 0 0),
-        0 4px 6px -4px rgb(0 0 0);
-      ring: 1px solid rgb(255 255 255);
-      backdrop-filter: blur(4px);
-    }
-  }
+	@keyframes nav-shadown {
+		0% {
+			background-color: transparent;
+		}
+		to {
+			box-shadow:
+				0 10px 15px -3px rgb(0 0 0),
+				0 4px 6px -4px rgb(0 0 0);
+			ring: 1px solid rgb(255 255 255);
+			backdrop-filter: blur(4px);
+		}
+	}
 </style>

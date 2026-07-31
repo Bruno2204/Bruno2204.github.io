@@ -1,0 +1,62 @@
+---
+import { languages, type Locale } from '../i18n/ui';
+
+const entries = Object.entries(languages) as [Locale, string][];
+---
+
+<div
+	class='lang-switcher'
+	role='group'
+	data-i18n-aria='lang.switcher.label'
+>
+	{
+		entries.map(([code]) => (
+			<button
+				type='button'
+				class='lang-btn'
+				data-set-locale={code}
+				aria-pressed='false'
+			>
+				{code.toUpperCase()}
+			</button>
+		))
+	}
+</div>
+
+<style>
+	@reference '../styles/global.css';
+
+	.lang-switcher {
+		@apply flex items-center gap-1 rounded-full bg-white/5 p-1;
+	}
+
+	.lang-btn {
+		@apply rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-gray-300 transition-colors duration-200 hover:text-white;
+	}
+
+	.lang-btn[aria-pressed='true'] {
+		@apply bg-blue-600 text-white;
+	}
+</style>
+
+<script>
+	import { isLocale, defaultLocale, type Locale } from '../i18n/ui';
+
+	function updateActive(locale: string) {
+		document
+			.querySelectorAll<HTMLButtonElement>('.lang-btn')
+			.forEach((btn) => {
+				const isActive = btn.dataset.setLocale === locale;
+				btn.setAttribute('aria-pressed', String(isActive));
+			});
+	}
+
+	const initial = document.documentElement.dataset.lang ?? defaultLocale;
+	updateActive(isLocale(initial) ? initial : defaultLocale);
+
+	window.addEventListener('locale-change', (e) => {
+		if (e instanceof CustomEvent && isLocale(e.detail)) {
+			updateActive(e.detail);
+		}
+	});
+</script>
